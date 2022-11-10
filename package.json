@@ -1,0 +1,28 @@
+{
+  "name": "m06-pt2.1",
+  "version": "1.0.0",
+  "description": "Practica evaluable 40% de la nota de la UF2  de la materia de M06 (Desenvolupament web en entorn client)",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexMillonesRojas/M06-Pt2.1.git"
+  },
+  "author": "Alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexMillonesRojas/M06-Pt2.1/issues"
+  },
+  "homepage": "https://github.com/AlexMillonesRojas/M06-Pt2.1#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
