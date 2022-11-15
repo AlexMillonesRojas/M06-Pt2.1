@@ -33,7 +33,7 @@ CREATE TABLE `customers` (
   `Name` varchar(30) NOT NULL,
   `Amount` int NOT NULL,
   `Entry date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `customers`
