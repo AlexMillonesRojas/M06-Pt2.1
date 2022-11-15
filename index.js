@@ -8,12 +8,12 @@ app.use(bodyParser.json());
 
 var connection = mysql.createConnection({
   host: "localhost",
-  database: "testM06",
+  database: "bank",
   user: "root",
   password: "211101",
 });
 
-app.post("/api/login", function (req, res) {
+app.get("/api/login", function (req, res) {
   console.log("estem a login");
 
   connection.connect(function (err) {
@@ -25,7 +25,7 @@ app.post("/api/login", function (req, res) {
     console.log("Connexte as id " + connection.threadId);
   });
 
-  connection.query("SELECT * FROM users", function (error, results, field) {
+  connection.query("SELECT * FROM customers", function (error, results, field) {
     if (error) {
       res.status(400).send({ resultats: null });
     } else {
@@ -33,7 +33,7 @@ app.post("/api/login", function (req, res) {
     }
   });
 
-  //connection.end();
+  connection.end();
 });
 app.listen(3000, () =>
   console.log(
