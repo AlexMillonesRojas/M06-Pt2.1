@@ -99,3 +99,18 @@ function validarAmount() {
 
 //------------------------------------------------------------------------------
 
+//peticion ajax metodo get 
+//le pedira los datos a el servidor node le pasara los datos de la base de datos 
+// https://www.arkaitzgarro.com/jquery/capitulo-7.html
+
+$.ajax({
+    type: "GET",
+    url: "http://localhost:3000/api/login",
+    //data: "data",
+    dataType: "json",
+    success: function (response) {
+        //$("#div1").html([]])
+        //$('<input type="text" class="DNIClient form-control form-control-sm">').response;
+        console.log(response)
+    }
+});

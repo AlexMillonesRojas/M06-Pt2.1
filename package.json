@@ -19,6 +19,7 @@
   "homepage": "https://github.com/AlexMillonesRojas/M06-Pt2.1#readme",
   "dependencies": {
     "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "mysql": "^2.18.1"
   },
