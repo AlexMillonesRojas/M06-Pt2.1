@@ -130,8 +130,23 @@ $.ajax({
     //data: "data",
     dataType: "json",
     success: function (response) {
-        //$("#div1").html([]])
+        for (let i = 0; i < response.resultats.length; i++) {
+            //console.log(response.resultats[i].Name);
+            $("#div1").html('<input type="text" class="form-control form-control-sm">')
+            $("input:text").val(response.resultats[i].DNI);
+          }
+        //$("#div1").html(response.resultats[0].DNI)
+        //$("#div1").html('<input type="text" class="form-control form-control-sm">')
+        //$("input:text").val(response.resultats[0].DNI);
         //$('<input type="text" class="DNIClient form-control form-control-sm">').response;
         console.log(response)
+        //console.log(response.resultats[0].Name);
     }
 });
+
+// $.getJSON('http://localhost:3000/api/login', function(data) {
+//     $.each(data, function(index) {
+//         alert(data[index].Name);
+//        // alert(data[index].TEST2);
+//     });
+// });
