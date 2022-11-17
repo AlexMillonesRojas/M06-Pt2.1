@@ -29,9 +29,9 @@ app.get("/api/login", function (req, res) {
 
   connection.query("SELECT * FROM customers", function (error, results, field) {
     if (error) {
-      res.status(400).send({ resultats: null });
+      res.status(400).send(null);
     } else {
-      res.status(200).send({ resultats: results });
+      res.status(200).send( JSON.stringify(results));
     }
   });
 
