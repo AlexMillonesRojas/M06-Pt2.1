@@ -132,12 +132,34 @@ $.ajax({
     dataType: "json",
     success: function (response) {
         console.log(response);
+        const table = $(`
+        <table>
+            <tr>
+                <th>DNI</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Entry Date</th>
+            </tr>
+        </table>
+        `)
         for (let i = 0; i < response.length; i++) {
-            let html = '<input type="text" id="dni'+i+'" class="form-control form-control-sm" value="'+response[i].DNI+'">';            
-            $("#div1").append(html);
-        }
-
-        //console.log(response)
+            let dni = '<input type="text" id="dni'+i+'" class="form-control form-control-sm" value="'+response[i].DNI+'">';
+            let name = '<input type="text" id="name'+i+'" class="form-control form-control-sm" value="'+response[i].Name+'">';
+            let amount = '<input type="text" id="amount'+i+'" class="form-control form-control-sm" value="'+response[i].Amount+'">';
+            var date = new Date(response[i]['Entry date']);
+            let dateFormat = date.toLocaleDateString('es-ES', {timeZone: "UTC"});
+            //let entryDate = '<input type="text" id="entryDate'+i+'" class="form-control form-control-sm" value="'+response[i]['Entry date']+'">';                     
+            let entryDate = '<input type="text" id="entryDate'+i+'" class="datepicker form-control form-control-sm" value="'+dateFormat+'">';                     
+            $("#div1").append(table);
+            table.append(`
+            <tr>
+            <td>${dni}</td>
+            <td>${name}</td>
+            <td>${amount}</td>
+            <td>${entryDate}</td>
+            </tr>
+            `)
+        }                    
 
     }
 });
