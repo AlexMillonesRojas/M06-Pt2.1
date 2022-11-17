@@ -53,11 +53,11 @@ class accountObj {
         this.#id = id;
     }
 
-    set accountType(accountType){
+    set accountType(accountTypeObj){
         this.#accountType = accountType;
     }
 
-    set clientType(clientType){
+    set clientType(clientTypeObj){
         this.#clientType = clientType;
     }
 
