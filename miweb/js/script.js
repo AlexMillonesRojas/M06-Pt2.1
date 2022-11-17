@@ -138,6 +138,7 @@ $.ajax({
                 <th>DNI</th>
                 <th>Name</th>
                 <th>Amount</th>
+                <th>Client type</th>
                 <th>Entry Date</th>
             </tr>
         </table>
@@ -145,10 +146,16 @@ $.ajax({
         for (let i = 0; i < response.length; i++) {
             let dni = '<input type="text" id="dni'+i+'" class="form-control form-control-sm" value="'+response[i].DNI+'">';
             let name = '<input type="text" id="name'+i+'" class="form-control form-control-sm" value="'+response[i].Name+'">';
-            let amount = '<input type="text" id="amount'+i+'" class="form-control form-control-sm" value="'+response[i].Amount+'">';
+            let amount = '<input type="text" id="amount'+i+'" class="form-control form-control-sm" value="'+response[i].Amount+' €">';
+            if(response[i].Amount > 100000){
+                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Very rich client">';
+            }else if(response[i].Amount > 10000 && response[i].Amount < 100000){
+                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Normal client">';
+            }else{
+                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Poor client">';
+            }
             var date = new Date(response[i]['Entry date']);
             let dateFormat = date.toLocaleDateString('es-ES', {timeZone: "UTC"});
-            //let entryDate = '<input type="text" id="entryDate'+i+'" class="form-control form-control-sm" value="'+response[i]['Entry date']+'">';                     
             let entryDate = '<input type="text" id="entryDate'+i+'" class="datepicker form-control form-control-sm" value="'+dateFormat+'">';                     
             $("#div1").append(table);
             table.append(`
@@ -156,6 +163,7 @@ $.ajax({
             <td>${dni}</td>
             <td>${name}</td>
             <td>${amount}</td>
+            <td>${clientType}</td>
             <td>${entryDate}</td>
             </tr>
             `)
@@ -164,27 +172,3 @@ $.ajax({
     }
 });
 
-// $.get("http://localhost:3000/api/login",function(data,status){
-//     const table = $(`
-//     <table>
-//         <tr>
-//             <th>DNI</th>
-//             <th>Name</th>
-//             <th>Amount</th>
-//         </tr>
-//     </table>
-//     `)
-
-//     $.each(data,function(k,d){
-//         table.append(`
-//                 <tr>
-//                     <td>${d.DNI}</td>
-//                     <td>${d.Name}</td>
-//                     <td>${d.Amount}</td>
-//                 </tr>
-//             `);
-//     })
-
-//         table.appendTo("body");
-//         console.log(data);
-// })
