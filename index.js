@@ -8,6 +8,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+//------------------------------------------------------------------------------
+
 var connection = mysql.createConnection({
   host: "localhost",
   database: "bank",
@@ -15,8 +17,12 @@ var connection = mysql.createConnection({
   password: "211101",
 });
 
+//------------------------------------------------------------------------------
+
 app.get("/api/login", function (req, res) {
   console.log("estem a login");
+
+  //------------------------------------------------------------------------------
 
   connection.connect(function (err) {
     console.log(err);
@@ -26,6 +32,8 @@ app.get("/api/login", function (req, res) {
     }
     console.log("Connexte as id " + connection.threadId);
   });
+
+  //------------------------------------------------------------------------------
 
   connection.query("SELECT * FROM customers", function (error, results, field) {
     if (error) {
