@@ -1,7 +1,7 @@
 $(document).ready(() => {
 
     //------------------------------------------------------------------------------
-
+    //COnfiguracion del datapicker apra cambiar la region a catalán. Añadiendole los nombre de los meses i dias en catalán.
     $.datepicker.regional['ca'] = {
         closeText: 'Tancar',
         prevText: 'Prv',
@@ -29,6 +29,7 @@ $(document).ready(() => {
         });
     });
 
+    //------------------------------------------------------------------------------
 
     $('.DNIClient').focusout(() => {
         validarDNI();
@@ -84,7 +85,7 @@ function validarDNI() {
 //------------------------------------------------------------------------------
 
 function validarNombre() {
-    // Validación del Código Postal (en España son 5 caracteres numéricos): Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
+    // Validación del nombre del cliente: Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
     var patronCP = /^[a-zA-Z ]+$/;
     var nombre = $('.fullNameClient').val();
     if (nombre.length > 30) {
@@ -103,7 +104,7 @@ function validarNombre() {
 //------------------------------------------------------------------------------
 
 function validarAmount() {
-    // Validación del Código Postal (en España son 5 caracteres numéricos): Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
+    // Validación del Amount: Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
     var patronCP = /[^0-9]/;
     var nombre = $('.amount').val();
     if (nombre.length > 0) {

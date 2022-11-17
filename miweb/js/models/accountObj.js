@@ -1,4 +1,6 @@
 class accountObj {
+    
+    //Atributos de la clase
     #id;
     #accountType;
     #clientType;
@@ -7,6 +9,7 @@ class accountObj {
     #amount;
     #entryDate;
 
+    //Creacion del constructor de la calse
     constructor(id, accountType, clientType, fullNameClient,DNIClient, amount, entryDate){
         this.id = id;
         this.accountType = accountType;
@@ -16,7 +19,7 @@ class accountObj {
         this.amount = amount;
         this.entryDate = entryDate;
     }
-
+    //Getters de la clase accountObj
     get id() {
         return this.#id;
     }
@@ -45,6 +48,7 @@ class accountObj {
         return this.#entryDate;
     }
 
+    //Setters de la clase accountObj
     set id(id){
         this.#id = id;
     }
