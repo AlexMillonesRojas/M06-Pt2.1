@@ -97,6 +97,7 @@ function validarNombre() {
         return false;
         } 
         else {
+        alert('es un nombre valido')
         return true;
     }
 
@@ -106,18 +107,19 @@ function validarNombre() {
 function validarAmount() {
     // Validación del Amount: Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
     var patronCP = /[^0-9]/;
-    var nombre = $('.amount').val();
-    if (nombre.length > 0) {
-        alert('No es una cantidad valida');
+    var cantidad = $('.amount').val();
+    if (cantidad.length > 0) {
+        alert('es una cantidad valida');
+        
         return false;
     }
     else if (!(patronCP.test($('.amount').val()))) {
         alert('No es una cantidad valida');
         return false;
         } 
-        else {
-        return true;
-}
+//         else {
+//         return true;
+// }
 }
 //------------------------------------------------------------------------------
 
@@ -144,7 +146,7 @@ $.ajax({
         </table>
         `)
         for (let i = 0; i < response.length; i++) {
-            let dni = '<input type="text" id="dni'+i+'" class="form-control form-control-sm" value="'+response[i].DNI+'">';
+            let dni = '<input type="text" id="dni'+i+'" class="DNIClient form-control form-control-sm" value="'+response[i].DNI+'">';
             let name = '<input type="text" id="name'+i+'" class="form-control form-control-sm" value="'+response[i].Name+'">';
             let amount = '<input type="text" id="amount'+i+'" class="form-control form-control-sm" value="'+response[i].Amount+' €">';
             if(response[i].Amount > 100000){
