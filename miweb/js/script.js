@@ -95,8 +95,8 @@ function validarNombre() {
     else if (!(patronCP.test($('.fullNameClient').val()))) {
         alert('No es un nombre valido');
         return false;
-        } 
-        else {
+    }
+    else {
         alert('es un nombre valido')
         return true;
     }
@@ -110,16 +110,16 @@ function validarAmount() {
     var cantidad = $('.amount').val();
     if (cantidad.length > 0) {
         alert('es una cantidad valida');
-        
+
         return false;
     }
     else if (!(patronCP.test($('.amount').val()))) {
         alert('No es una cantidad valida');
         return false;
-        } 
-//         else {
-//         return true;
-// }
+    }
+    //         else {
+    //         return true;
+    // }
 }
 //------------------------------------------------------------------------------
 
@@ -127,6 +127,7 @@ function validarAmount() {
 //le pedira los datos a el servidor node le pasara los datos de la base de datos 
 // https://www.arkaitzgarro.com/jquery/capitulo-7.html
 
+//Metodo ajax para la base de datos y cración de la tabla de forma dinámica
 $.ajax({
     type: "GET",
     url: "http://localhost:3000/api/login",
@@ -145,21 +146,23 @@ $.ajax({
             </tr>
         </table>
         `)
+        //Bucle que sirve para crear inputs dentro de la tabla y muestra los datos de la base de datos
         for (let i = 0; i < response.length; i++) {
-            let dni = '<input type="text" id="dni'+i+'" class="DNIClient form-control form-control-sm" value="'+response[i].DNI+'">';
-            let name = '<input type="text" id="name'+i+'" class="form-control form-control-sm" value="'+response[i].Name+'">';
-            let amount = '<input type="text" id="amount'+i+'" class="form-control form-control-sm" value="'+response[i].Amount+' €">';
-            if(response[i].Amount > 100000){
-                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Very rich client">';
-            }else if(response[i].Amount > 10000 && response[i].Amount < 100000){
-                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Normal client">';
-            }else{
-                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Poor client">';
+            let dni = '<input type="text" id="dni' + i + '" class="DNIClient form-control form-control-sm" value="' + response[i].DNI + '">';
+            let name = '<input type="text" id="name' + i + '" class="form-control form-control-sm" value="' + response[i].Name + '">';
+            let amount = '<input type="text" id="amount' + i + '" class="form-control form-control-sm" value="' + response[i].Amount + ' €">';
+            if (response[i].Amount > 100000) {
+                var clientType = '<input type="text" id="clientType' + i + '" class="form-control form-control-sm" value="Very rich client">';
+            } else if (response[i].Amount > 10000 && response[i].Amount < 100000) {
+                var clientType = '<input type="text" id="clientType' + i + '" class="form-control form-control-sm" value="Normal client">';
+            } else {
+                var clientType = '<input type="text" id="clientType' + i + '" class="form-control form-control-sm" value="Poor client">';
             }
             var date = new Date(response[i]['Entry date']);
-            let dateFormat = date.toLocaleDateString('es-ES', {timeZone: "UTC"});
-            let entryDate = '<input type="text" id="entryDate'+i+'" class="datepicker form-control form-control-sm" value="'+dateFormat+'">';                     
+            let dateFormat = date.toLocaleDateString('es-ES', { timeZone: "UTC" });
+            let entryDate = '<input type="text" id="entryDate' + i + '" class="datepicker form-control form-control-sm" value="' + dateFormat + '">';
             $("#div1").append(table);
+            //Asignación de los datos en sus campos correspondientes 
             table.append(`
             <tr>
             <td>${dni}</td>
@@ -169,8 +172,7 @@ $.ajax({
             <td>${entryDate}</td>
             </tr>
             `)
-        }                    
-
+        }
     }
 });
 
