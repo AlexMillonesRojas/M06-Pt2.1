@@ -1,6 +1,9 @@
+const { response } = require("express");
+
 $(document).ready(() => {
 
-    //------------------------------------------------------------------------------
+    //------------------------------ DATEPICKER ------------------------------
+    
     //COnfiguracion del datapicker apra cambiar la region a catalán. Añadiendole los nombre de los meses i dias en catalán.
     $.datepicker.regional['ca'] = {
         closeText: 'Tancar',
@@ -50,8 +53,81 @@ $(document).ready(() => {
     
 });
 
-//------------------------------------------------------------------------------
+//------------------------------ PETICION CON METODO AJAX ----------------
 
+//peticion ajax metodo get 
+//le pedira los datos a el servidor node le pasara los datos de la base de datos 
+// https://www.arkaitzgarro.com/jquery/capitulo-7.html
+
+//Metodo ajax para la base de datos y cración de la tabla de forma dinámica
+$.ajax({
+    type: "GET",
+    url: "http://localhost:3000/api/login",
+    //data: "data",
+    dataType: "json",
+    success: function (response) {
+        console.log(response);
+        const table = $(`
+        <table>
+            <tr>
+                <th>DNI</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Client type</th>
+                <th>Entry Date</th>
+            </tr>
+        </table>
+        `)
+        //Bucle que sirve para crear inputs dentro de la tabla y muestra los datos de la base de datos
+        for (let i = 0; i < response.length; i++) {
+            let dni = '<input type="text" id="dni'+i+'" class="DNIClient form-control form-control-sm" value="'+response[i].DNI+'" maxlength="9"">';
+            let name = '<input type="text" id="name'+i+'" class="fullNameClient form-control form-control-sm" value="'+response[i].Name+'">';
+            let amount = '<input type="text" id="amount'+i+'" class="amount form-control form-control-sm" value="'+response[i].Amount+' €">';
+            if(response[i].Amount > 100000){
+                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Very rich client">';
+            }else if(response[i].Amount > 10000 && response[i].Amount < 100000){
+                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Normal client">';
+            }else{
+                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Poor client">';
+            }
+            var date = new Date(response[i]['Entry date']);
+            let dateFormat = date.toLocaleDateString('es-ES', { timeZone: "UTC" });
+            let entryDate = '<input type="text" id="entryDate' + i + '" class="datepicker form-control form-control-sm" value="' + dateFormat + '">';
+            $("#div1").append(table);
+            //Asignación de los datos en sus campos correspondientes 
+            table.append(`
+            <tr>
+            <td>${dni}</td>
+            <td>${name}</td>
+            <td>${amount}</td>
+            <td>${clientType}</td>
+            <td>${entryDate}</td>
+            </tr>
+            `)
+            inicializeObj();
+        }
+    }
+});
+
+//------------------------------- OBJETOS ------------------------------
+
+//Funcion para inicializar los objetos
+function inicializeObj() {
+    client_type_account = new accountTypeObj(response.id, response.type);
+    client_type = new clientTypeObj(response.id , response.type, response.description);
+    account = new accountObj(
+        response.DNIClient,
+        response.fullNameClient,
+        response.amount,
+        response.entryDate,
+        clientType,
+        accountType,
+    );
+}
+
+//------------------------------ VALIDACIONES ------------------------------
+
+//Funcion para validar el DNI 
 function validarDNI() {
     // Validación de DNI: Comprueba si el DNI es correcto.
     if ($('.DNIClient').val().length > 0) {
@@ -85,27 +161,27 @@ function validarDNI() {
 }
 
 //------------------------------------------------------------------------------
-
+//Funcion para validar el nombre
 function validarNombre() {
     // Validación del nombre del cliente: Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
     var patronCP = /^[a-zA-Z ]+$/;
-    var nombre = $('.fullNameClient').val();
+    var nombre = $(".fullNameClient").val();
     if (nombre.length > 30) {
-        alert('superas los 30 letras');
+        $(".fullNameClient").css("border-color", "red");
         //return false;
     }
-    else if (!(patronCP.test($('.fullNameClient').val()))) {
-        alert('No es un nombre valido');
+    else if (!(patronCP.test(nombre))) {
+        $(".fullNameClient").css("border-color", "red");
         //return false;
     } 
     else {
-        alert('es un nombre valido')
+        $(".fullNameClient").css("border-color", "green");
         //return true;
     }
-    
 }
-//------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
+//Funcion para validar la cantidad
 function validarAmount() {
     // Validación del Amount: Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
     var patronCP = /[0-9 $]/g;
@@ -123,58 +199,3 @@ function validarAmount() {
             //         return true;
 // }
 }
-//------------------------------------------------------------------------------
-
-//peticion ajax metodo get 
-//le pedira los datos a el servidor node le pasara los datos de la base de datos 
-// https://www.arkaitzgarro.com/jquery/capitulo-7.html
-
-//Metodo ajax para la base de datos y cración de la tabla de forma dinámica
-$.ajax({
-    type: "GET",
-    url: "http://localhost:3000/api/login",
-    //data: "data",
-    dataType: "json",
-    success: function (response) {
-        console.log(response);
-        const table = $(`
-        <table>
-            <tr>
-                <th>DNI</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Client type</th>
-                <th>Entry Date</th>
-            </tr>
-        </table>
-        `)
-        //Bucle que sirve para crear inputs dentro de la tabla y muestra los datos de la base de datos
-        for (let i = 0; i < response.length; i++) {
-            let dni = '<input type="text" id="dni'+i+'" class="DNIClient form-control form-control-sm" value="'+response[i].DNI+'">';
-            let name = '<input type="text" id="name'+i+'" class="fullNameClient form-control form-control-sm" value="'+response[i].Name+'">';
-            let amount = '<input type="text" id="amount'+i+'" class="amount form-control form-control-sm" value="'+response[i].Amount+' €">';
-            if(response[i].Amount > 100000){
-                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Very rich client">';
-            }else if(response[i].Amount > 10000 && response[i].Amount < 100000){
-                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Normal client">';
-            }else{
-                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Poor client">';
-            }
-            var date = new Date(response[i]['Entry date']);
-            let dateFormat = date.toLocaleDateString('es-ES', { timeZone: "UTC" });
-            let entryDate = '<input type="text" id="entryDate' + i + '" class="datepicker form-control form-control-sm" value="' + dateFormat + '">';
-            $("#div1").append(table);
-            //Asignación de los datos en sus campos correspondientes 
-            table.append(`
-            <tr>
-            <td>${dni}</td>
-            <td>${name}</td>
-            <td>${amount}</td>
-            <td>${clientType}</td>
-            <td>${entryDate}</td>
-            </tr>
-            `)
-        }
-    }
-});
-
