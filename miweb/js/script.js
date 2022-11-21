@@ -70,6 +70,7 @@ $.ajax({
             <tr>
                 <th>DNI</th>
                 <th>Name</th>
+                <th>Account type</th>
                 <th>Amount</th>
                 <th>Client type</th>
                 <th>Entry Date</th>
@@ -78,8 +79,35 @@ $.ajax({
         `)
         //Bucle que sirve para crear inputs dentro de la tabla y muestra los datos de la base de datos
         for (let i = 0; i < response.length; i++) {
-            let dni = '<input type="text" id="dni'+i+'" class="DNIClient form-control form-control-sm" value="'+response[i].DNI+'" maxlength="9"">';
+            let dni = '<input type="text" id="dni'+i+'" class="DNIClient form-control form-control-sm" value="'+response[i].DNI+'">';
             let name = '<input type="text" id="name'+i+'" class="fullNameClient form-control form-control-sm" value="'+response[i].Name+'">';
+            let account_options = [
+                "Savings account",
+                "Investement account",
+                "Personal account",
+                "Solidary account",
+                "Individual Savings Account",
+                "Fixed deposit account",
+                "Tax-Free Savings Account",
+              ];
+            let accountType = '<select>';
+
+            account_options.forEach((options,index)=>{
+                if (response[i]['Account type'] === options) {
+                    accountType += `<option value='${options}' selected >${options}</option>`;
+                  } else {
+                    accountType += `<option value='${options}'>${options}</option>`;
+                  }
+            });
+
+            accountType += "</select></td>";
+
+            // ```<select name="accountType" class="accountType form-select form-select-sm"> 
+            // <option value="volvo">'+response[i].+'</option>
+            // <option value="saab">Saab</option>
+            // <option value="opel">Opel</option>
+            // <option value="audi">Audi</option>
+            // </select>```;
             let amount = '<input type="text" id="amount'+i+'" class="amount form-control form-control-sm" value="'+response[i].Amount+' €">';
             if(response[i].Amount > 100000){
                 var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Very rich client">';
@@ -97,6 +125,7 @@ $.ajax({
             <tr>
             <td>${dni}</td>
             <td>${name}</td>
+            <td>${accountType}</td>
             <td>${amount}</td>
             <td>${clientType}</td>
             <td>${entryDate}</td>
