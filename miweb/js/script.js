@@ -49,8 +49,6 @@ $(document).ready(() => {
         validarAmount();
         //validarNombre();
     });
-    
-    
 });
 
 //------------------------------ PETICION CON METODO AJAX ----------------
@@ -167,15 +165,15 @@ function validarNombre() {
     var patronCP = /^[a-zA-Z ]+$/;
     var nombre = $(".fullNameClient").val();
     if (nombre.length > 30) {
-        $(".fullNameClient").css("border-color", "red");
+        $(nombre).css("border-color", "red");
         //return false;
     }
     else if (!(patronCP.test(nombre))) {
-        $(".fullNameClient").css("border-color", "red");
+        $(nombre).css("border-color", "red");
         //return false;
     } 
     else {
-        $(".fullNameClient").css("border-color", "green");
+        $(nombre).css("border-color", "green");
         //return true;
     }
 }
@@ -184,14 +182,14 @@ function validarNombre() {
 //Funcion para validar la cantidad
 function validarAmount() {
     // Validación del Amount: Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
-    var patronCP = /[0-9 $]/g;
+    var pattern = /[0-9 $]/g;
     var cantidad = $('.amount').val();
     if (cantidad.length > 0) {
         alert('No es una cantidad valida');
         
         return false;
     }
-    else if (!(patronCP.test($('.amount').val()))) {
+    else if (!(pattern.test($('.amount').val()))) {
         alert('No es una cantidad valida');
         return false;
         } 
