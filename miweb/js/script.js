@@ -196,7 +196,7 @@ function validarAmount() {
         return false;
     }
     else {
-        $("#errorAmount").text("");
+        $("#errorName").text("");
         return true;
     }
 }
