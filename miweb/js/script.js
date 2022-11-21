@@ -46,6 +46,8 @@ $(document).ready(() => {
         validarAmount();
         //validarNombre();
     });
+    
+    
 });
 
 //------------------------------------------------------------------------------
@@ -67,11 +69,11 @@ function validarDNI() {
         //Se separan los números de la letra
         var letraDNI = dni.substring(8, 9).toUpperCase();
         var numDNI = parseInt(dni.substring(0, 8));
-
+        
         //Se calcula la letra correspondiente al número
         var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
         var letraCorrecta = letras[numDNI % 23];
-
+        
         if (letraDNI != letraCorrecta) {
             alert("Debe de escribir un DNI correcto");
             return false;
@@ -89,27 +91,27 @@ function validarNombre() {
     var patronCP = /^[a-zA-Z ]+$/;
     var nombre = $('.fullNameClient').val();
     if (nombre.length > 30) {
-        alert('No es un nombre valido');
-        return false;
+        alert('superas los 30 letras');
+        //return false;
     }
     else if (!(patronCP.test($('.fullNameClient').val()))) {
         alert('No es un nombre valido');
-        return false;
-        } 
-        else {
+        //return false;
+    } 
+    else {
         alert('es un nombre valido')
-        return true;
+        //return true;
     }
-
+    
 }
 //------------------------------------------------------------------------------
 
 function validarAmount() {
     // Validación del Amount: Comprueba si el dato ha sido introducido y si cumple con el patrón indicado.
-    var patronCP = /[^0-9]/;
+    var patronCP = /[0-9 $]/g;
     var cantidad = $('.amount').val();
     if (cantidad.length > 0) {
-        alert('es una cantidad valida');
+        alert('No es una cantidad valida');
         
         return false;
     }
@@ -117,8 +119,8 @@ function validarAmount() {
         alert('No es una cantidad valida');
         return false;
         } 
-//         else {
-//         return true;
+        //         else {
+            //         return true;
 // }
 }
 //------------------------------------------------------------------------------
@@ -147,14 +149,14 @@ $.ajax({
         `)
         for (let i = 0; i < response.length; i++) {
             let dni = '<input type="text" id="dni'+i+'" class="DNIClient form-control form-control-sm" value="'+response[i].DNI+'">';
-            let name = '<input type="text" id="name'+i+'" class="form-control form-control-sm" value="'+response[i].Name+'">';
-            let amount = '<input type="text" id="amount'+i+'" class="form-control form-control-sm" value="'+response[i].Amount+' €">';
+            let name = '<input type="text" id="name'+i+'" class="fullNameClient form-control form-control-sm" value="'+response[i].Name+'">';
+            let amount = '<input type="text" id="amount'+i+'" class="amount form-control form-control-sm" value="'+response[i].Amount+' €">';
             if(response[i].Amount > 100000){
-                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Very rich client">';
+                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Very rich client">';
             }else if(response[i].Amount > 10000 && response[i].Amount < 100000){
-                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Normal client">';
+                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Normal client">';
             }else{
-                var clientType = '<input type="text" id="clientType'+i+'" class="form-control form-control-sm" value="Poor client">';
+                var clientType = '<input type="text" id="clientType'+i+'" class="clientType form-control form-control-sm" value="Poor client">';
             }
             var date = new Date(response[i]['Entry date']);
             let dateFormat = date.toLocaleDateString('es-ES', {timeZone: "UTC"});

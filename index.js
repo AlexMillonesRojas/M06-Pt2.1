@@ -3,10 +3,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 var cors = require('cors')
+const path = require('path')
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/', express.static(path.join(__dirname, 'miweb')))
+
 
 //------------------------------------------------------------------------------
 
@@ -43,7 +46,7 @@ app.get("/api/login", function (req, res) {
     }
   });
 
-  connection.end();
+  //connection.end();
 });
 app.listen(3000, () =>
   console.log(
