@@ -2,8 +2,8 @@ class accountObj {
     
     //Atributos de la clase
     #id;
-    #accountType;
-    #clientType;
+    #accountType = accountTypeObj();
+    #clientType = clientTypeObj();
     #fullNameClient;
     #DNIClient;
     #amount;
