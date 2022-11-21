@@ -171,9 +171,12 @@ function validarNombre() {
         $("#errorDNI").text("Nombre demasiado largo");
         return false;
     }
-    else if (!(patronCP.test(nombre))) {
+    else if ((patronCP.test(nombre))) {
         $("#errorDNI").text("Nombre no valido");
         return false;
+    }
+    else if (nombre == null) {
+        $("#errorDNI").text("Falta por rellenar el campo de Nombre");
     }
     else {
         $("#errorName").text("");
@@ -191,12 +194,15 @@ function validarAmount() {
         $("#errorAmount").text("No puede ser una cantidad inferior a 0");
         return false;
     }
-    else if (!(pattern.test($('.amount').val()))) {
+    else if ((pattern.test($('.amount').val()))) {
         $("#errorAmount").text("Cantidad no valida");
         return false;
     }
+    else if (nombre == null) {
+        $("#errorAmount").text("Falta por especificar una cantidad");
+    }
     else {
-        $("#errorName").text("");
+        $("#errorAmount").text("");
         return true;
     }
 }
