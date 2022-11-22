@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   database: "bank",
   user: "root",
-  password: "admin",
+  password: "211101",
 });
 
 //------------------------------------------------------------------------------
